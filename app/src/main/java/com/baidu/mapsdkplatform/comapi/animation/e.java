@@ -1,0 +1,169 @@
+package com.baidu.mapsdkplatform.comapi.animation;
+
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.view.animation.Interpolator;
+import com.baidu.mapapi.animation.Animation;
+import com.baidu.mapapi.animation.Animation.AnimationListener;
+import com.baidu.mapapi.map.Marker;
+
+public class e
+  extends BDAnimation
+{
+  private Animator a = null;
+  private long b = 0L;
+  private Interpolator c = null;
+  private Animation.AnimationListener d = null;
+  private int e = 1;
+  private int f = 0;
+  private float[] g;
+  private int h;
+  
+  public e(int paramInt, float... paramVarArgs)
+  {
+    this.g = paramVarArgs;
+    this.h = paramInt;
+  }
+  
+  public int a()
+  {
+    return this.e;
+  }
+  
+  @TargetApi(11)
+  ObjectAnimator a(Marker paramMarker)
+  {
+    int i = this.h;
+    if (i == 1) {
+      paramMarker = ObjectAnimator.ofFloat(paramMarker, "scaleX", this.g);
+    } else if (i == 2) {
+      paramMarker = ObjectAnimator.ofFloat(paramMarker, "scaleY", this.g);
+    } else {
+      paramMarker = null;
+    }
+    if (paramMarker != null)
+    {
+      paramMarker.setRepeatCount(this.f);
+      paramMarker.setRepeatMode(a());
+      paramMarker.setDuration(this.b);
+      Interpolator localInterpolator = this.c;
+      if (localInterpolator != null) {
+        paramMarker.setInterpolator(localInterpolator);
+      }
+    }
+    return paramMarker;
+  }
+  
+  @TargetApi(11)
+  protected void addAnimationListener(Animator paramAnimator)
+  {
+    if (paramAnimator == null) {
+      return;
+    }
+    paramAnimator.addListener(new a());
+  }
+  
+  @TargetApi(11)
+  public void cancelAnimation()
+  {
+    Animator localAnimator = this.a;
+    if (localAnimator != null)
+    {
+      localAnimator.cancel();
+      this.a = null;
+    }
+  }
+  
+  @TargetApi(11)
+  public void setAnimation(Marker paramMarker, Animation paramAnimation)
+  {
+    paramMarker = a(paramMarker);
+    this.a = paramMarker;
+    addAnimationListener(paramMarker);
+  }
+  
+  public void setAnimationListener(Animation.AnimationListener paramAnimationListener)
+  {
+    this.d = paramAnimationListener;
+  }
+  
+  public void setAnimatorSetMode(int paramInt) {}
+  
+  public void setDuration(long paramLong)
+  {
+    long l = paramLong;
+    if (paramLong < 0L) {
+      l = 0L;
+    }
+    this.b = l;
+  }
+  
+  public void setInterpolator(Interpolator paramInterpolator)
+  {
+    this.c = paramInterpolator;
+  }
+  
+  public void setRepeatCount(int paramInt)
+  {
+    if ((paramInt > 0) || (paramInt == -1)) {
+      this.f = paramInt;
+    }
+  }
+  
+  public void setRepeatMode(int paramInt)
+  {
+    this.e = paramInt;
+  }
+  
+  @TargetApi(11)
+  public void startAnimation()
+  {
+    Animator localAnimator = this.a;
+    if (localAnimator == null) {
+      return;
+    }
+    localAnimator.start();
+  }
+  
+  class a
+    implements Animator.AnimatorListener
+  {
+    a() {}
+    
+    public void onAnimationCancel(Animator paramAnimator)
+    {
+      if (e.a(e.this) != null) {
+        e.a(e.this).onAnimationCancel();
+      }
+    }
+    
+    public void onAnimationEnd(Animator paramAnimator)
+    {
+      if (e.a(e.this) != null) {
+        e.a(e.this).onAnimationEnd();
+      }
+    }
+    
+    public void onAnimationRepeat(Animator paramAnimator)
+    {
+      if (e.a(e.this) != null) {
+        e.a(e.this).onAnimationRepeat();
+      }
+    }
+    
+    public void onAnimationStart(Animator paramAnimator)
+    {
+      if (e.a(e.this) != null) {
+        e.a(e.this).onAnimationStart();
+      }
+    }
+  }
+}
+
+
+/* Location:           E:\android_tools\AndroidKiller_v1.3.1\projects\hoxin-release\ProjectSrc\smali\
+ * Qualified Name:     com.baidu.mapsdkplatform.comapi.animation.e
+ * JD-Core Version:    0.7.0.1
+ */
